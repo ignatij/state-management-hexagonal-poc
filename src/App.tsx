@@ -1,22 +1,13 @@
 
-import { getErrorSelector, getIsFetchingSelector, getPokemonsSelector } from './adapters/primary/store/pokemons/state/selectors/get-pokemons.selector'
-import { fetchPokemons } from './adapters/primary/store/pokemons/state/thunks/fetchPokemons'
-import { useAppDispatch, useAppSelector } from './adapters/primary/store/store'
 import './App.css'
+import { usePokemonsScreen } from './adapters/primary/ui/pokemons/usePokemonsScreen'
 
 function App() {
-  const dispatch = useAppDispatch()
-  const error = useAppSelector(getErrorSelector)
-  const isLoading = useAppSelector(getIsFetchingSelector)
-  const pokemons = useAppSelector(getPokemonsSelector)
-
-  const getPokemons = () => {
-    dispatch(fetchPokemons())
-  }
+  const { state: { error, isLoading, pokemons }, actions: { load } } = usePokemonsScreen()
 
   return (
       <main>
-        <button onClick={getPokemons}>Get Pokemons</button>
+        <button onClick={load}>Get Pokemons</button>
         {error && <p>{error}</p>}
         {isLoading && <p>Loading...</p>}
         {pokemons.length > 0 && <ul>
