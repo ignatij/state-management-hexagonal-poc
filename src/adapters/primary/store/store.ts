@@ -2,15 +2,17 @@ import { combineReducers, configureStore } from '@reduxjs/toolkit'
 import pokemonsReducer, { buildInitialPokemonsState } from './pokemons/state/slice'
 import { useDispatch, useSelector } from 'react-redux'
 import type { AppState } from './app-state'
-import type { QuarzoDependencies } from '../core/quarzo.dependencies'
-import { inMemoryPokemonsGateway } from '../adapters/pokemons/in-memory-pokemons.gateway'
+import type { QuarzoDependencies } from '../../../core/quarzo.dependencies'
+import { getPokemonsGateway } from '../../secondary/pokemons/get-pokemons.gateway'
 
 export const rootReducer = combineReducers({
   pokemons: pokemonsReducer,
   // add other reducers here
 })
 
-
+const dependencies: QuarzoDependencies = {
+  getPokemonsGateway: getPokemonsGateway()
+}
 
 const preloadState: AppState = {
   pokemons: buildInitialPokemonsState()
@@ -25,11 +27,7 @@ export const createStore = (dependencies: QuarzoDependencies, hydrate: AppState 
   });
 
 
-const testDependencies: QuarzoDependencies = {
-  getPokemonsGateway: inMemoryPokemonsGateway({ feedWithPokemons: [{ name: 'bulbasaur', url: 'https://pokeapi.co/api/v2/pokemon/1/' }] })
-}
-
-export const store = createStore(testDependencies)
+export const store = createStore(dependencies)
 
 store.subscribe(() => {
   console.log('state changed', store.getState())

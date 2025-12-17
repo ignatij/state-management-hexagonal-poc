@@ -1,8 +1,8 @@
-import type { QuarzoDependencies } from "../../../../core/quarzo.dependencies"
-import { getPokemonsHandler } from "../../../../core/use-cases"
 import { setError, setIsFetching, setPokemons } from "../slice"
 import type { RootState } from "../../../store"
 import type { Action, ThunkAction } from "@reduxjs/toolkit"
+import type { QuarzoDependencies } from "../../../../../../core/quarzo.dependencies"
+import { getPokemonsHandler } from "../../../../../../core/use-cases"
 
 type AppThunk = ThunkAction<
   Promise<void>,

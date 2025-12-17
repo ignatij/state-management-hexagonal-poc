@@ -1,4 +1,4 @@
-import type { GetPokemonsGatewayPort } from "../../core/ports/get-pokemons.gateway.port"
+import type { GetPokemonsGatewayPort } from "../../../core/ports/get-pokemons.gateway.port"
 
 export const getPokemonsGateway = (): GetPokemonsGatewayPort => ( {
   getPokemons: async () => {

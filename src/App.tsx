@@ -1,8 +1,8 @@
 
+import { getErrorSelector, getIsFetchingSelector, getPokemonsSelector } from './adapters/primary/store/pokemons/state/selectors/get-pokemons.selector'
+import { fetchPokemons } from './adapters/primary/store/pokemons/state/thunks/fetchPokemons'
+import { useAppDispatch, useAppSelector } from './adapters/primary/store/store'
 import './App.css'
-import {  useAppDispatch, useAppSelector } from './store/store'
-import { fetchPokemons } from './store/pokemons/state/thunks/fetchPokemons'
-import { getErrorSelector, getIsFetchingSelector, getPokemonsSelector } from './store/pokemons/state/selectors/get-pokemons.selector'
 
 function App() {
   const dispatch = useAppDispatch()

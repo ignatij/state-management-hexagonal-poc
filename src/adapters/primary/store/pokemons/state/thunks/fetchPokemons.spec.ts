@@ -1,9 +1,9 @@
 import {describe, it, expect} from 'vitest'
 import { fetchPokemons } from './fetchPokemons'
-import type { QuarzoDependencies } from '../../../../core/quarzo.dependencies'
-import { inMemoryPokemonsGateway } from '../../../../adapters/pokemons/in-memory-pokemons.gateway'
 import { createStore } from '../../../store'
 import { getIsFetchingSelector, getPokemonsSelector } from '../selectors/get-pokemons.selector'
+import type { QuarzoDependencies } from '../../../../../../core/quarzo.dependencies'
+import { inMemoryPokemonsGateway } from '../../../../../secondary/pokemons/in-memory-pokemons.gateway'
 
 describe('fetchPokemons', () => {
   it('should fetch the pokemons', async () => {
