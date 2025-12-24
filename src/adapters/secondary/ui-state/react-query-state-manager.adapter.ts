@@ -8,6 +8,7 @@ export const createReactQueryStateManager = (
 ): StateManagerPort => {
   const queryKey = ["pokemons"] as const;
   
+  
   return {
     getPokemons: (): PokemonsState => {
       const queryState = queryClient.getQueryState(queryKey);
