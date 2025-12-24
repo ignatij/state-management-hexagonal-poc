@@ -3,17 +3,11 @@ import { fireEvent, render, screen } from "@testing-library/react";
 import { expect, test } from "vitest";
 import App from "./App";
 import { QuarzoDependenciesProvider } from "./application/quarzo.provider";
-import { inMemoryPokemonsGateway } from "./adapters/secondary/pokemons/in-memory-pokemons.gateway";
+import { buildInMemoryDependencies } from "./application/build-quarzo-dependencies";
 
 const queryClient = new QueryClient();
 
-const dependencies = {
-  getPokemonsGateway: inMemoryPokemonsGateway({
-    feedWithPokemons: [
-      { name: "bulbasaur", url: "https://pokeapi.co/api/v2/pokemon/1/" },
-    ],
-  }),
-};
+const dependencies = buildInMemoryDependencies(queryClient);
 
 test("loads pokemons from context dependencies", async () => {
   render(
