@@ -1,10 +1,6 @@
+import type { Pokemons } from "../../entities/pokemon";
 import type { GetPokemonsGatewayPort } from "../../ports/get-pokemons.gateway.port";
 
-export const getPokemonsHandler = async (gateway: GetPokemonsGatewayPort) => {
-  const response = await gateway.getPokemons();
-
-  return response.results.map((pokemon) => ({
-    name: pokemon.name,
-    url: pokemon.url,
-  }));
-};
+export const getPokemonsHandler = (
+  gateway: GetPokemonsGatewayPort
+): Promise<Pokemons> => gateway.getPokemons();

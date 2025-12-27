@@ -1,9 +1,10 @@
 import type { Pokemon } from "../../entities/pokemon";
-import type { CreatePokemonGatewayPort, CreatePokemonRequest } from "../../ports/create-pokemon.gateway.port";
+import type {
+  CreatePokemonGatewayPort,
+  CreatePokemonRequest,
+} from "../../ports/create-pokemon.gateway.port";
 
-export const createPokemonHandler = async (
+export const createPokemonHandler = (
   gateway: CreatePokemonGatewayPort,
   request: CreatePokemonRequest
-): Promise<Pokemon> => {
-  return await gateway.createPokemon(request);
-};
+): Promise<Pokemon> => gateway.createPokemon(request);

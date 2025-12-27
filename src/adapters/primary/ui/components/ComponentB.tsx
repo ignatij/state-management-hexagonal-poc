@@ -7,9 +7,10 @@ export const ComponentB = () => {
   const pokemonsState = stateManager.getPokemons();
   console.log("Pokemons state from cache:", pokemonsState);
 
-
-  return <div>ComponentB: {pokemonsState.data?.length}
-  <p>isLoading: {pokemonsState.isLoading ? "true" : "false"}</p>
-  </div>;
+  return (
+    <div>
+      ComponentB: {pokemonsState.data?.length}
+      <p>isLoading: {pokemonsState.isLoading ? "true" : "false"}</p>
+    </div>
+  );
 };
-

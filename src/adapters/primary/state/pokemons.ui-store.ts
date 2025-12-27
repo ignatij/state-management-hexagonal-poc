@@ -1,10 +1,10 @@
-import { create } from 'zustand'
+import { create } from "zustand";
 
 type PokemonsUiState = {
-  hasRequestedFetch: boolean
-  requestFetch: () => void
-  reset: () => void
-}
+  hasRequestedFetch: boolean;
+  requestFetch: () => void;
+  reset: () => void;
+};
 
 /**
  * Pure UI state managed via Zustand. It keeps track of whether the user
@@ -15,4 +15,4 @@ export const usePokemonsUiStore = create<PokemonsUiState>((set) => ({
   hasRequestedFetch: false,
   requestFetch: () => set({ hasRequestedFetch: true }),
   reset: () => set({ hasRequestedFetch: false }),
-}))
+}));

@@ -6,7 +6,7 @@ type InMemoryPokemonsOptions = {
 };
 
 export const inMemoryPokemonsGateway = (
-  options: InMemoryPokemonsOptions = {},
+  options: InMemoryPokemonsOptions = {}
 ): GetPokemonsGatewayPort => {
   const { feedWithPokemons = [], failWithError } = options;
 
@@ -16,9 +16,7 @@ export const inMemoryPokemonsGateway = (
         throw failWithError;
       }
 
-      return {
-        results: feedWithPokemons,
-      };
+      return feedWithPokemons;
     },
   };
 };

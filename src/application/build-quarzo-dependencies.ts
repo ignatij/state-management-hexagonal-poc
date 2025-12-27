@@ -10,8 +10,8 @@ export const buildQuarzoDependencies = (
   queryClient: QueryClient
 ): QuarzoDependencies => ({
   getPokemonsGateway: getPokemonsGateway(),
-  stateManager: createReactQueryStateManager(queryClient),
   createPokemonGateway: createPokemonGateway(),
+  stateManager: createReactQueryStateManager(queryClient),
 });
 
 export const buildInMemoryDependencies = (
@@ -22,6 +22,6 @@ export const buildInMemoryDependencies = (
       { name: "bulbasaur", url: "https://pokeapi.co/api/v2/pokemon/1/" },
     ],
   }),
-  stateManager: createReactQueryStateManager(queryClient),
   createPokemonGateway: inMemoryCreatePokemonGateway({}),
+  stateManager: createReactQueryStateManager(queryClient),
 });

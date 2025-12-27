@@ -1,7 +1,7 @@
-import type { Pokemon } from "../entities/pokemon";
+import type { Pokemon, Pokemons } from "../entities/pokemon";
 
 export type PokemonsState = {
-  data: Pokemon[] | undefined;
+  data: Pokemons | undefined;
   isLoading: boolean;
   error: Error | null;
 };

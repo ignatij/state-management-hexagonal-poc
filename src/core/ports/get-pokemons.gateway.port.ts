@@ -1,10 +1,5 @@
-export type GetPokemonsGatewayPort = {
-  getPokemons: () => Promise<GetPokemonsApiResponse>
-}
+import type { Pokemons } from "../entities/pokemon";
 
-export type GetPokemonsApiResponse = {
-  results: {
-    name: string
-    url: string
-  }[]
-}
+export type GetPokemonsGatewayPort = {
+  getPokemons: () => Promise<Pokemons>;
+};
