@@ -1,10 +1,10 @@
-import { useCreatePokemonScreen } from "./useCreatePokemonScreen";
+import { useCreatePokemon } from "./useCreatePokemon";
 import { useCallback } from "react";
 
 export const CreatePokemon = () => {
   const {
     actions: { addPokemon },
-  } = useCreatePokemonScreen();
+  } = useCreatePokemon();
 
   const onSubmit = useCallback(
     (event: React.FormEvent<HTMLFormElement>) => {

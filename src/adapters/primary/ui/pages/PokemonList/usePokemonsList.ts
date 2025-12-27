@@ -4,7 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useQuarzoDependencies } from "../../../../../application/use-quarzo-dependencies";
 import { getPokemonsHandler } from "../../../../../core/use-cases/get-pokemons";
 
-export const usePokemonsScreen = () => {
+export const usePokemonsList = () => {
   const { getPokemonsGateway } = useQuarzoDependencies();
   const [hasRequestedFetch, setHasRequestedFetch] = useState(false);
 

@@ -4,7 +4,7 @@ import { createPokemonHandler } from "../../../../../core/use-cases/create-pokem
 import { useQuarzoDependencies } from "../../../../../application/use-quarzo-dependencies";
 import type { CreatePokemonRequest } from "../../../../../core/ports/create-pokemon.gateway.port";
 
-export const useCreatePokemonScreen = () => {
+export const useCreatePokemon = () => {
   const { createPokemonGateway, stateManager } = useQuarzoDependencies();
 
   // Mutation for creating pokemon with optimistic update

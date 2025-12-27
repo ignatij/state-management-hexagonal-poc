@@ -11,16 +11,16 @@ function App() {
         <h2>Navigation</h2>
         <Link to="/">Pokemons List</Link>
         <br />
+        <Link to="/create-pokemon">Create Pokemon</Link>
         {/* <Link to="/component-a">Component A</Link>
         <br /> */}
-        <Link to="/create-pokemon">Create Pokemon</Link>
       </nav>
       <main>
         <h2>Content</h2>
         <Routes>
           <Route path="/" element={<PokemonsList />} />
-          {/* <Route path="/component-a" element={<ComponentA />} /> */}
           <Route path="/create-pokemon" element={<CreatePokemon />} />
+          {/* <Route path="/component-a" element={<ComponentA />} /> */}
         </Routes>
       </main>
     </BrowserRouter>

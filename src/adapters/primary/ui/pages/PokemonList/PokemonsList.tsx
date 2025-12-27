@@ -1,10 +1,10 @@
-import { usePokemonsScreen } from "./usePokemonsScreen";
+import { usePokemonsList } from "./usePokemonsList";
 
 export const PokemonsList = () => {
   const {
     state: { error, isLoading, pokemons },
     actions: { load },
-  } = usePokemonsScreen();
+  } = usePokemonsList();
 
   return (
     <div>
