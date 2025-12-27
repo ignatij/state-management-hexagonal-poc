@@ -7,7 +7,8 @@ export const PokemonsList = () => {
   } = usePokemonsScreen();
 
   return (
-    <main>
+    <div>
+      <h3>Pokemons list</h3>
       <button onClick={load}>Get Pokemons</button>
       {error && <p>{error}</p>}
       {isLoading && <p>Loading...</p>}
@@ -18,7 +19,6 @@ export const PokemonsList = () => {
           ))}
         </ul>
       )}
-    </main>
+    </div>
   );
 };
-

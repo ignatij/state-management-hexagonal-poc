@@ -19,12 +19,13 @@ export const CreatePokemon = () => {
   );
 
   return (
-    <main>
+    <div>
+      <h3>Create Pokemon form</h3>
       <form onSubmit={onSubmit}>
         <input type="text" name="name" placeholder="Name" />
         <input type="text" name="url" placeholder="URL" />
         <button type="submit">Create</button>
       </form>
-    </main>
+    </div>
   );
 };
