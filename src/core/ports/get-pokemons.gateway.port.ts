@@ -1,4 +1,4 @@
-import type { Pokemons } from "../entities/pokemon";
+import type { Pokemons } from "../../entities/pokemon";
 
 export type GetPokemonsGatewayPort = {
   getPokemons: () => Promise<Pokemons>;

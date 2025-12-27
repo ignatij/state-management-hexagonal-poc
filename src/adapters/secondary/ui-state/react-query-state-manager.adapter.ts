@@ -1,6 +1,6 @@
 // adapters/secondary/ui-state/react-query-state-manager.adapter.ts
 import type { QueryClient } from "@tanstack/react-query";
-import type { Pokemon, Pokemons } from "../../../core/entities/pokemon";
+import type { Pokemon, Pokemons } from "../../../entities/pokemon";
 import type {
   StateManagerPort,
   PokemonsState,

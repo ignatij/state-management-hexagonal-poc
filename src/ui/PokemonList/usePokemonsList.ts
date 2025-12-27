@@ -1,7 +1,7 @@
 // adapters/primary/ui/pages/usePokemonsScreen.ts
 import { useCallback, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
-import { useQuarzoDependencies } from "../../../../../application/use-quarzo-dependencies";
+import { useQuarzoDependencies } from "../../application/use-quarzo-dependencies";
 import type { UiContract } from "../ui-contract";
 import type { Actions, State } from "./PokemonsList";
 

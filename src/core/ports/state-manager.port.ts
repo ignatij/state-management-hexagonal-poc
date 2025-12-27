@@ -1,4 +1,4 @@
-import type { Pokemon, Pokemons } from "../entities/pokemon";
+import type { Pokemon, Pokemons } from "../../entities/pokemon";
 
 export type PokemonsState = {
   data: Pokemons | undefined;

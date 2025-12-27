@@ -1,6 +1,6 @@
 import { useCallback } from "react";
 import { useMutation } from "@tanstack/react-query";
-import { useQuarzoDependencies } from "../../../../../application/use-quarzo-dependencies";
+import { useQuarzoDependencies } from "../../application/use-quarzo-dependencies";
 import type { UiContract } from "../ui-contract";
 import type { State, Actions, ProtoPokemon } from "./CreatePokemon";
 

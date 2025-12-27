@@ -24,5 +24,10 @@
     "noFallthroughCasesInSwitch": true,
     "noUncheckedSideEffectImports": true
   },
-  "include": ["src"]
+  "include": [
+    "src",
+    "src/.bin/ComponentA.tsx",
+    "src/.bin/ComponentB.tsx",
+    "src/.bin/pokemons.ui-store.ts"
+  ]
 }

@@ -1,6 +1,6 @@
-import type { Pokemon } from "../../../core/entities/pokemon";
+import type { Pokemon } from "../../../entities/pokemon";
 import type { CreatePokemonGatewayPort } from "../../../core/ports/create-pokemon.gateway.port";
-import type { ProtoPokemon } from "../../primary/ui/pages/CreatePokemon/CreatePokemon";
+import type { ProtoPokemon } from "../../../ui/CreatePokemon/CreatePokemon";
 
 export const inMemoryCreatePokemonGateway = ({
   feedWithError,

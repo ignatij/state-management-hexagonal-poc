@@ -1,4 +1,4 @@
-import type { Pokemons } from "../../../../../core/entities/pokemon";
+import type { Pokemons } from "../../entities/pokemon";
 import { usePokemonsList } from "./usePokemonsList";
 
 export type State = {
