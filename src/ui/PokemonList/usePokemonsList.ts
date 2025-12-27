@@ -6,7 +6,7 @@ import type { UiContract } from "../ui-contract";
 import type { Actions, State } from "./PokemonsList";
 
 export const usePokemonsList = (): UiContract<State, Actions> => {
-  const { getPokemonsGateway } = useQuarzoDependencies();
+  const { bff } = useQuarzoDependencies();
   const [hasRequestedFetch, setHasRequestedFetch] = useState(false);
 
   const requestFetch = useCallback(() => {
@@ -16,7 +16,7 @@ export const usePokemonsList = (): UiContract<State, Actions> => {
   // Query for fetching pokemons
   const { data, error, isFetching, isPending, refetch } = useQuery({
     queryKey: ["pokemons"],
-    queryFn: () => getPokemonsGateway.getPokemons(),
+    queryFn: () => bff.getPokemons(),
     enabled: hasRequestedFetch,
     staleTime: 1000 * 30,
     gcTime: 1000 * 60 * 5,

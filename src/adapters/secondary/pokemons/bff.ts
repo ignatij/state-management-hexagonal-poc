@@ -1,8 +1,13 @@
+import type { Bff } from "../../../core/quarzo.dependencies";
 import type { Pokemon } from "../../../entities/pokemon";
-import type { CreatePokemonGatewayPort } from "../../../core/ports/create-pokemon.gateway.port";
 import type { ProtoPokemon } from "../../../ui/CreatePokemon/CreatePokemon";
 
-export const createPokemonGateway = (): CreatePokemonGatewayPort => ({
+export const bff = (): Bff => ({
+  getPokemons: async () => {
+    const response = await fetch("https://pokeapi.co/api/v2/pokemon");
+    const result = await response.json();
+    return result.results;
+  },
   createPokemon: async (request: ProtoPokemon): Promise<Pokemon> => {
     // Note: Commented this call since the endpoint does not exist
     // const response = await fetch('https://pokeapi.co/api/v2/pokemon', {
