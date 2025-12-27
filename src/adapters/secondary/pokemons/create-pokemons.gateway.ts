@@ -1,11 +1,9 @@
 import type { Pokemon } from "../../../core/entities/pokemon";
-import type {
-  CreatePokemonGatewayPort,
-  CreatePokemonRequest,
-} from "../../../core/ports/create-pokemon.gateway.port";
+import type { CreatePokemonGatewayPort } from "../../../core/ports/create-pokemon.gateway.port";
+import type { ProtoPokemon } from "../../primary/ui/pages/CreatePokemon/CreatePokemon";
 
 export const createPokemonGateway = (): CreatePokemonGatewayPort => ({
-  createPokemon: async (request: CreatePokemonRequest): Promise<Pokemon> => {
+  createPokemon: async (request: ProtoPokemon): Promise<Pokemon> => {
     // Note: Commented this call since the endpoint does not exist
     // const response = await fetch('https://pokeapi.co/api/v2/pokemon', {
     //   method: 'POST',

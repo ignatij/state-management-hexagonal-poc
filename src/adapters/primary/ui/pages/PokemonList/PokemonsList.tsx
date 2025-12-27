@@ -1,4 +1,15 @@
+import type { Pokemons } from "../../../../../core/entities/pokemon";
 import { usePokemonsList } from "./usePokemonsList";
+
+export type State = {
+  pokemons: Pokemons;
+  isLoading: boolean;
+  error: string | null;
+};
+
+export type Actions = {
+  load: () => void;
+};
 
 export const PokemonsList = () => {
   const {

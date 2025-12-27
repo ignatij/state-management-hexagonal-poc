@@ -4,17 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useQuarzoDependencies } from "../../../../../application/use-quarzo-dependencies";
 import { getPokemonsHandler } from "../../../../../core/use-cases/get-pokemons";
 import type { UiContract } from "../ui-contract";
-import type { Pokemons } from "../../../../../core/entities/pokemon";
-
-type State = {
-  pokemons: Pokemons;
-  isLoading: boolean;
-  error: string | null;
-};
-
-type Actions = {
-  load: () => void;
-};
+import type { Actions, State } from "./PokemonsList";
 
 export const usePokemonsList = (): UiContract<State, Actions> => {
   const { getPokemonsGateway } = useQuarzoDependencies();

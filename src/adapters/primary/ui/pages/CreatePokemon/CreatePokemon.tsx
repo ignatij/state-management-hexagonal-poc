@@ -1,6 +1,20 @@
 import { useCreatePokemon } from "./useCreatePokemon";
 import { useCallback } from "react";
 
+export type ProtoPokemon = {
+  name: string;
+  url: string;
+};
+
+export type State = {
+  isCreating: boolean;
+  error: string | null;
+};
+
+export type Actions = {
+  addPokemon: (request: ProtoPokemon) => void;
+};
+
 export const CreatePokemon = () => {
   const {
     state: { isCreating, error },
