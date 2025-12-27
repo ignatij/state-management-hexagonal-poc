@@ -12,7 +12,6 @@ export const CreatePokemon = () => {
       const formData = new FormData(event.target as HTMLFormElement);
       const name = formData.get("name") as string;
       const url = formData.get("url") as string;
-      console.log(name, url);
       addPokemon({ name, url });
     },
     [addPokemon]

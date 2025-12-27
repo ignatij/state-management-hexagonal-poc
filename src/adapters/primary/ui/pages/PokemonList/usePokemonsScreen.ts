@@ -1,21 +1,17 @@
 // adapters/primary/ui/pages/usePokemonsScreen.ts
 import { useCallback, useState } from "react";
-import { useQuery, useMutation } from "@tanstack/react-query";
-import { createPokemonHandler } from "../../../../../core/use-cases/create-pokemon";
+import { useQuery } from "@tanstack/react-query";
 import { useQuarzoDependencies } from "../../../../../application/use-quarzo-dependencies";
-import type { CreatePokemonRequest } from "../../../../../core/ports/create-pokemon.gateway.port";
 import { getPokemonsHandler } from "../../../../../core/use-cases/get-pokemons";
 
-
-
 export const usePokemonsScreen = () => {
-  const { getPokemonsGateway, createPokemonGateway, stateManager } = useQuarzoDependencies();
+  const { getPokemonsGateway } = useQuarzoDependencies();
   const [hasRequestedFetch, setHasRequestedFetch] = useState(false);
 
   const requestFetch = useCallback(() => {
     setHasRequestedFetch(true);
   }, []);
-  
+
   // Query for fetching pokemons
   const { data, error, isFetching, isPending, refetch } = useQuery({
     queryKey: ["pokemons"],
@@ -26,31 +22,6 @@ export const usePokemonsScreen = () => {
     refetchOnWindowFocus: false,
   });
 
-  // Mutation for creating pokemon with optimistic update
-  const createPokemonMutation = useMutation({
-    mutationFn: (request: CreatePokemonRequest) => 
-      createPokemonHandler(createPokemonGateway, request),
-    
-    // Optimistic update: update cache immediately
-    onMutate: async (newPokemon) => {
-      // Optimistically add to cache
-      stateManager.addPokemon(newPokemon);
-      
-      return { previousPokemons: data };
-    },
-    
-    // In case mutation fails 
-    onError: (error, newPokemon, context) => {
-      console.error(error, newPokemon, context);
-     
-    },
-    
-    // Note: We could update the state here and not on "onMutate"
-    onSuccess: () => {
-      // void refetch();
-    },
-  });
-
   const load = useCallback(() => {
     if (!hasRequestedFetch) {
       requestFetch();
@@ -58,10 +29,6 @@ export const usePokemonsScreen = () => {
     }
     void refetch();
   }, [hasRequestedFetch, refetch, requestFetch]);
-
-  const addPokemon = useCallback((request: CreatePokemonRequest) => {
-    createPokemonMutation.mutate(request);
-  }, [createPokemonMutation]);
 
   const errorMessage = error
     ? error instanceof Error
@@ -72,16 +39,13 @@ export const usePokemonsScreen = () => {
   const pokemons = data ?? [];
 
   return {
-    state: { 
-      pokemons, 
-      isLoading, 
+    state: {
+      pokemons,
+      isLoading,
       error: errorMessage,
-      isCreating: createPokemonMutation.isPending,
-      createError: createPokemonMutation.error,
     },
-    actions: { 
-      load, 
-      addPokemon,
+    actions: {
+      load,
     },
   };
 };
