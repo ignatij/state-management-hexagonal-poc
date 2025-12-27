@@ -1,5 +1,5 @@
 // import { usePokemonsScreen } from "../pages/usePokemonsScreen";
-import { useQuarzoDependencies } from "../application/use-quarzo-dependencies";
+import { useQuarzoDependencies } from "../bootstrap/use-quarzo-dependencies";
 
 export const ComponentB = () => {
   // const { state: { pokemons, isLoading } } = usePokemonsScreen();

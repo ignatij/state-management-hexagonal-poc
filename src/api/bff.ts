@@ -1,6 +1,6 @@
-import type { Bff } from "../../../core/quarzo.dependencies";
-import type { Pokemon } from "../../../entities/pokemon";
-import type { ProtoPokemon } from "../../../ui/CreatePokemon/CreatePokemon";
+import type { Bff } from "../bootstrap/quarzo.dependencies";
+import type { Pokemon } from "../entities/pokemon";
+import type { ProtoPokemon } from "../ui/CreatePokemon/CreatePokemon";
 
 export const bff = (): Bff => ({
   getPokemons: async () => {

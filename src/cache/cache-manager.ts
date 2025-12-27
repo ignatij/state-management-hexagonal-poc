@@ -1,9 +1,9 @@
 import type { QueryClient } from "@tanstack/react-query";
-import type { Pokemon, Pokemons } from "../../../entities/pokemon";
+import type { Pokemon, Pokemons } from "../entities/pokemon";
 import type {
   CacheManager,
   PokemonsState,
-} from "../../../core/quarzo.dependencies";
+} from "../bootstrap/quarzo.dependencies";
 
 export const createCacheManager = (queryClient: QueryClient): CacheManager => {
   const queryKey = ["pokemons"] as const;

@@ -2,8 +2,8 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { fireEvent, render, screen } from "@testing-library/react";
 import { expect, test } from "vitest";
 import App from "./App";
-import { QuarzoDependenciesProvider } from "./application/quarzo.provider";
-import { buildInMemoryDependencies } from "./application/build-quarzo-dependencies";
+import { QuarzoDependenciesProvider } from "./bootstrap/quarzo.provider";
+import { buildInMemoryDependencies } from "./bootstrap/build-quarzo-dependencies";
 
 const queryClient = new QueryClient();
 

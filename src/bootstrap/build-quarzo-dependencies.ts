@@ -1,8 +1,8 @@
-import type { QuarzoDependencies } from "../core/quarzo.dependencies";
+import type { QuarzoDependencies } from "./quarzo.dependencies";
 import type { QueryClient } from "@tanstack/react-query";
-import { createCacheManager } from "../adapters/secondary/ui-state/react-query-state-manager.adapter";
-import { bff } from "../adapters/secondary/pokemons/bff";
-import { inMemoryBff } from "../adapters/secondary/pokemons/inMemoryBff";
+import { createCacheManager } from "../cache/cache-manager";
+import { inMemoryBff } from "../api/inMemoryBff";
+import { bff } from "../api/bff";
 
 export const buildQuarzoDependencies = (
   queryClient: QueryClient

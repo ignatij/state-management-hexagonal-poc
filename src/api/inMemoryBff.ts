@@ -1,5 +1,5 @@
-import type { Pokemon } from "../../../entities/pokemon";
-import type { ProtoPokemon } from "../../../ui/CreatePokemon/CreatePokemon";
+import type { Pokemon } from "../entities/pokemon";
+import type { ProtoPokemon } from "../ui/CreatePokemon/CreatePokemon";
 
 type GetPokemonsOptions = {
   feedWithPokemons?: { name: string; url: string }[];
