@@ -1,25 +1,12 @@
-import type { Bff } from "../bootstrap/quarzo.dependencies";
-import type { AllPokemonsItem } from "../ui/components/AllPokemons/AllPokemons";
-import type { ProtoPokemon } from "../ui/components/AllPokemons/CreatePokemon/CreatePokemon";
+import type { Bff } from "../../../bootstrap/quarzo.dependencies";
+import type { AllPokemonsItem } from "../../../ui/components/AllPokemons/AllPokemons";
+import type { ProtoPokemon } from "../../../ui/components/AllPokemons/CreatePokemon/CreatePokemon";
 
 export const bff = (): Bff => ({
-  getAllPokemons: async () => {
+  getPokemons: async () => {
     const response = await fetch("https://pokeapi.co/api/v2/pokemon");
     const result = await response.json();
-    return result.results.map((pokemon: AllPokemonsItem, index: number) => ({
-      ...pokemon,
-      id: index + 1, // Nice API, where there's no id…
-    }));
-  },
-  getOnePokemon: async (pokemonId) => {
-    const response = await fetch(
-      "https://pokeapi.co/api/v2/pokemon/" + pokemonId
-    );
-    const { weight } = await response.json();
-    return {
-      id: pokemonId,
-      weight,
-    };
+    return result.results;
   },
   createPokemon: async (request: ProtoPokemon): Promise<AllPokemonsItem> => {
     // Note: Commented this call since the endpoint does not exist

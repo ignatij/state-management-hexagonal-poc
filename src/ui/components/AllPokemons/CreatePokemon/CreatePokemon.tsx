@@ -2,6 +2,7 @@ import { useCreatePokemon } from "./useCreatePokemon";
 import { useCallback } from "react";
 
 export type ProtoPokemon = {
+  id: number;
   name: string;
   url: string;
 };
@@ -15,7 +16,7 @@ export type Actions = {
   addPokemon: (pokemon: ProtoPokemon) => void;
 };
 
-export const CreatePokemon = () => {
+const Component = () => {
   const {
     state: { isCreating, error },
     actions: { addPokemon },
@@ -25,9 +26,10 @@ export const CreatePokemon = () => {
     (event: React.FormEvent<HTMLFormElement>) => {
       event.preventDefault();
       const formData = new FormData(event.target as HTMLFormElement);
+      const id = 111111;
       const name = formData.get("name") as string;
       const url = formData.get("url") as string;
-      addPokemon({ name, url });
+      addPokemon({ id, name, url });
     },
     [addPokemon]
   );
@@ -45,3 +47,5 @@ export const CreatePokemon = () => {
     </div>
   );
 };
+
+export default Component;

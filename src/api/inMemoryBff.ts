@@ -1,8 +1,11 @@
-import type { Pokemon } from "../entities/pokemon";
-import type { ProtoPokemon } from "../ui/CreatePokemon/CreatePokemon";
+import type {
+  AllPokemons,
+  AllPokemonsItem,
+} from "../ui/components/AllPokemons/AllPokemons";
+import type { ProtoPokemon } from "../ui/components/AllPokemons/CreatePokemon/CreatePokemon";
 
 type GetPokemonsOptions = {
-  feedWithPokemons?: { name: string; url: string }[];
+  feedWithPokemons?: AllPokemons;
   failWithError?: Error;
 };
 
@@ -11,7 +14,7 @@ type CreatePokemonOptions = {
 };
 
 export const inMemoryBff = {
-  getPokemons: (options: GetPokemonsOptions = {}) => {
+  getAllPokemons: (options: GetPokemonsOptions = {}) => {
     const { feedWithPokemons = [], failWithError } = options;
 
     return async () => {
@@ -25,15 +28,12 @@ export const inMemoryBff = {
   createPokemon: ({ feedWithError }: CreatePokemonOptions = {}) => {
     const error: string | null = feedWithError ?? null;
 
-    return async (request: ProtoPokemon): Promise<Pokemon> => {
+    return async (pokemon: ProtoPokemon): Promise<AllPokemonsItem> => {
       if (error) {
         throw new Error(error);
       }
 
-      return Promise.resolve({
-        name: request.name,
-        url: request.url,
-      });
+      return Promise.resolve(pokemon);
     };
   },
 };

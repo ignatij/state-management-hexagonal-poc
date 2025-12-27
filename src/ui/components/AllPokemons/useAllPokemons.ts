@@ -1,12 +1,13 @@
-// adapters/primary/ui/pages/usePokemonsScreen.ts
 import { useCallback, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
-import { useQuarzoDependencies } from "../../bootstrap/use-quarzo-dependencies";
-import type { UiContract } from "../ui-contract";
-import type { Actions, State } from "./PokemonsList";
+import { useQuarzoDependencies } from "../../../bootstrap/use-quarzo-dependencies";
+import type { UiContract } from "../../ui-contract";
+import type { Actions, State } from "./AllPokemons";
+import { useSelection } from "../../../state/selection";
 
 export const usePokemonsList = (): UiContract<State, Actions> => {
   const { bff } = useQuarzoDependencies();
+  const setSelection = useSelection((state) => state.setSelection);
   const [hasRequestedFetch, setHasRequestedFetch] = useState(false);
 
   const requestFetch = useCallback(() => {
@@ -15,8 +16,8 @@ export const usePokemonsList = (): UiContract<State, Actions> => {
 
   // Query for fetching pokemons
   const { data, error, isFetching, isPending, refetch } = useQuery({
-    queryKey: ["pokemons"],
-    queryFn: () => bff.getPokemons(),
+    queryKey: ["all-pokemons"],
+    queryFn: () => bff.getAllPokemons(),
     enabled: hasRequestedFetch,
     staleTime: 1000 * 30,
     gcTime: 1000 * 60 * 5,
@@ -47,6 +48,7 @@ export const usePokemonsList = (): UiContract<State, Actions> => {
     },
     actions: {
       load,
+      select: setSelection,
     },
   };
 };
