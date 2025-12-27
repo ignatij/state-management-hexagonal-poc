@@ -1,14 +1,11 @@
-// adapters/secondary/ui-state/react-query-state-manager.adapter.ts
 import type { QueryClient } from "@tanstack/react-query";
 import type { Pokemon, Pokemons } from "../../../entities/pokemon";
 import type {
-  StateManagerPort,
+  CacheManager,
   PokemonsState,
-} from "../../../core/ports/state-manager.port";
+} from "../../../core/quarzo.dependencies";
 
-export const createReactQueryStateManager = (
-  queryClient: QueryClient
-): StateManagerPort => {
+export const createCacheManager = (queryClient: QueryClient): CacheManager => {
   const queryKey = ["pokemons"] as const;
 
   return {

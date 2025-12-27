@@ -3,7 +3,7 @@ import { useQuarzoDependencies } from "../application/use-quarzo-dependencies";
 
 export const ComponentB = () => {
   // const { state: { pokemons, isLoading } } = usePokemonsScreen();
-  const { stateManager } = useQuarzoDependencies();
+  const { cache: stateManager } = useQuarzoDependencies();
   const pokemonsState = stateManager.getPokemons();
   console.log("Pokemons state from cache:", pokemonsState);
 

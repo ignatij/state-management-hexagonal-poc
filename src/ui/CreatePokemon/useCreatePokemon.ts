@@ -5,7 +5,7 @@ import type { UiContract } from "../ui-contract";
 import type { State, Actions, ProtoPokemon } from "./CreatePokemon";
 
 export const useCreatePokemon = (): UiContract<State, Actions> => {
-  const { bff, stateManager } = useQuarzoDependencies();
+  const { bff, cache: stateManager } = useQuarzoDependencies();
 
   // Mutation for creating pokemon with optimistic update
   const createPokemonMutation = useMutation({
