@@ -18,6 +18,8 @@ export const createPokemonGateway = (): CreatePokemonGatewayPort => ({
       url: request.url,
     });
 
-    return Promise.resolve(JSON.parse(response));
+    return new Promise((resolve) => {
+      setTimeout(() => resolve(JSON.parse(response)), 2000);
+    });
   },
 });

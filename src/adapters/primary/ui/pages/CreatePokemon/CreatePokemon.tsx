@@ -3,6 +3,7 @@ import { useCallback } from "react";
 
 export const CreatePokemon = () => {
   const {
+    state: { isCreating, error },
     actions: { addPokemon },
   } = useCreatePokemon();
 
@@ -25,6 +26,8 @@ export const CreatePokemon = () => {
         <input type="text" name="url" placeholder="URL" />
         <button type="submit">Create</button>
       </form>
+      {error && <p>{error}</p>}
+      {isCreating && <p>Creating the Pokemon...</p>}
     </div>
   );
 };
