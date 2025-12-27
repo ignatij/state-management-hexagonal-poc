@@ -1,3 +1,6 @@
+import ErrorResult from "../../../../utils/ErrorResult";
+import PendingResult from "../../../../utils/PendingResult";
+import { isError, isPending, type Result } from "../../../../utils/Result";
 import { useCreatePokemon } from "./useCreatePokemon";
 import { useCallback } from "react";
 
@@ -7,10 +10,7 @@ export type ProtoPokemon = {
   url: string;
 };
 
-export type State = {
-  isCreating: boolean;
-  error: string | null;
-};
+export type State = Result<undefined, undefined, string>;
 
 export type Actions = {
   addPokemon: (pokemon: ProtoPokemon) => void;
@@ -18,7 +18,7 @@ export type Actions = {
 
 const Component = () => {
   const {
-    state: { isCreating, error },
+    state,
     actions: { addPokemon },
   } = useCreatePokemon();
 
@@ -37,13 +37,13 @@ const Component = () => {
   return (
     <div>
       <h3>Create Pokemon form</h3>
+      {isPending(state) && <PendingResult>Creating the Pokemon…</PendingResult>}
+      {isError(state) && <ErrorResult>{state.error}</ErrorResult>}
       <form onSubmit={onSubmit}>
         <input type="text" name="name" placeholder="Name" />
         <input type="text" name="url" placeholder="URL" />
         <button type="submit">Create</button>
       </form>
-      {error && <p>{error}</p>}
-      {isCreating && <p>Creating the Pokemon...</p>}
     </div>
   );
 };

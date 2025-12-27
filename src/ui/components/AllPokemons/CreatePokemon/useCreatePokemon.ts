@@ -3,6 +3,7 @@ import { useMutation } from "@tanstack/react-query";
 import { useQuarzoDependencies } from "../../../../bootstrap/use-quarzo-dependencies";
 import type { UiContract } from "../../../ui-contract";
 import type { State, Actions, ProtoPokemon } from "./CreatePokemon";
+import { error, pending, success } from "../../../../utils/Result";
 
 export const useCreatePokemon = (): UiContract<State, Actions> => {
   const { bff, cache } = useQuarzoDependencies();
@@ -37,10 +38,15 @@ export const useCreatePokemon = (): UiContract<State, Actions> => {
   );
 
   return {
-    state: {
-      isCreating: createPokemonMutation.isPending,
-      error: createPokemonMutation.error?.message || null,
-    },
+    state: (() => {
+      if (createPokemonMutation.isPending) {
+        return pending(undefined);
+      }
+      if (createPokemonMutation.error) {
+        return error(createPokemonMutation.error?.message);
+      }
+      return success(undefined);
+    })(),
     actions: {
       addPokemon,
     },

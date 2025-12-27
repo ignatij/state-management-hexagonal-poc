@@ -4,6 +4,7 @@ import type { UiContract } from "../../ui-contract";
 import type { Actions, State } from "./OnePokemon";
 import { useSelection } from "../../../state/selection";
 import { onePokemonQueryKey } from "../../../cache/one-pokemon.cache";
+import { error, pending, success } from "../../../utils/Result";
 
 export const useOnePokemon = (): UiContract<State, Actions> => {
   const { bff } = useQuarzoDependencies();
@@ -13,7 +14,11 @@ export const useOnePokemon = (): UiContract<State, Actions> => {
     throw `selection should not be null`;
   }
 
-  const { data, error, isFetching } = useQuery({
+  const {
+    data,
+    error: e,
+    isFetching,
+  } = useQuery({
     queryKey: onePokemonQueryKey(selection),
     queryFn: () => bff.getOnePokemon(selection),
     staleTime: 1000 * 30,
@@ -21,18 +26,22 @@ export const useOnePokemon = (): UiContract<State, Actions> => {
     refetchOnWindowFocus: false,
   });
 
-  const errorMessage = error
-    ? error instanceof Error
-      ? error.message
+  const errorMessage = e
+    ? e instanceof Error
+      ? e.message
       : "Unknown error"
     : null;
 
   return {
-    state: {
-      pokemon: data,
-      isLoading: isFetching,
-      error: errorMessage,
-    },
+    state: (() => {
+      if (isFetching || !data) {
+        return pending(undefined);
+      }
+      if (errorMessage) {
+        return error(errorMessage);
+      }
+      return success(data);
+    })(),
     actions: {},
   };
 };

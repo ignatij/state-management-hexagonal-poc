@@ -4,6 +4,7 @@ import { useQuarzoDependencies } from "../../../bootstrap/use-quarzo-dependencie
 import type { UiContract } from "../../ui-contract";
 import type { Actions, State } from "./AllPokemons";
 import { useSelection } from "../../../state/selection";
+import { error, pending, success } from "../../../utils/Result";
 
 export const usePokemonsList = (): UiContract<State, Actions> => {
   const { bff } = useQuarzoDependencies();
@@ -15,7 +16,13 @@ export const usePokemonsList = (): UiContract<State, Actions> => {
   }, []);
 
   // Query for fetching pokemons
-  const { data, error, isFetching, isPending, refetch } = useQuery({
+  const {
+    data,
+    error: e,
+    isFetching,
+    isPending,
+    refetch,
+  } = useQuery({
     queryKey: ["all-pokemons"],
     queryFn: () => bff.getAllPokemons(),
     enabled: hasRequestedFetch,
@@ -32,20 +39,24 @@ export const usePokemonsList = (): UiContract<State, Actions> => {
     void refetch();
   }, [hasRequestedFetch, refetch, requestFetch]);
 
-  const errorMessage = error
-    ? error instanceof Error
-      ? error.message
+  const errorMessage = e
+    ? e instanceof Error
+      ? e.message
       : "Unknown error"
     : null;
   const isLoading = hasRequestedFetch ? isPending || isFetching : false;
   const pokemons = data ?? [];
 
   return {
-    state: {
-      pokemons,
-      isLoading,
-      error: errorMessage,
-    },
+    state: (() => {
+      if (isLoading) {
+        return pending([]);
+      }
+      if (errorMessage) {
+        return error(errorMessage);
+      }
+      return success(pokemons);
+    })(),
     actions: {
       load,
       select: setSelection,

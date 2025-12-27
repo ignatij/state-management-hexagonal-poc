@@ -1,4 +1,12 @@
 /* eslint-disable @typescript-eslint/no-empty-object-type */
+import ErrorResult from "../../../utils/ErrorResult";
+import PendingResult from "../../../utils/PendingResult";
+import {
+  isError,
+  isPending,
+  isSuccess,
+  type Result,
+} from "../../../utils/Result";
 import { useOnePokemon } from "./useOnePokemon";
 
 export type OnePokemon = {
@@ -6,29 +14,24 @@ export type OnePokemon = {
   weight: number;
 };
 
-export type State = {
-  pokemon: OnePokemon | undefined;
-  isLoading: boolean;
-  error: string | null;
-};
+export type State = Result<undefined, OnePokemon, string>;
 
 export type Actions = {};
 
 const Component = () => {
-  const {
-    state: { pokemon, isLoading },
-  } = useOnePokemon();
-  if (isLoading) {
-    return <div>Loading…</div>;
-  }
-
-  const { id, weight } = pokemon!; // todo
+  const { state } = useOnePokemon();
 
   return (
     <div>
       <h3>Detail view</h3>
-      <div>Id: {id}</div>
-      <div>Weight: {weight}</div>
+      {isPending(state) && <PendingResult />}
+      {isError(state) && <ErrorResult>{state.error}</ErrorResult>}
+      {isSuccess(state) && (
+        <>
+          <div>Id: {state.value.id}</div>
+          <div>Weight: {state.value.weight}</div>
+        </>
+      )}
     </div>
   );
 };

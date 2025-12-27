@@ -1,3 +1,11 @@
+import ErrorResult from "../../../utils/ErrorResult";
+import PendingResult from "../../../utils/PendingResult";
+import {
+  isError,
+  isPending,
+  isSuccess,
+  type Result,
+} from "../../../utils/Result";
 import CreatePokemon from "./CreatePokemon/CreatePokemon";
 import { usePokemonsList } from "./useAllPokemons";
 
@@ -9,11 +17,7 @@ export type AllPokemonsItem = {
 
 export type AllPokemons = AllPokemonsItem[];
 
-export type State = {
-  pokemons: AllPokemons;
-  isLoading: boolean;
-  error: string | null;
-};
+export type State = Result<AllPokemons, AllPokemons, string>;
 
 export type Actions = {
   load: () => void;
@@ -22,7 +26,7 @@ export type Actions = {
 
 const Component = () => {
   const {
-    state: { error, isLoading, pokemons },
+    state,
     actions: { load, select },
   } = usePokemonsList();
 
@@ -30,11 +34,11 @@ const Component = () => {
     <div>
       <h3>Pokemons list</h3>
       <button onClick={load}>Get Pokemons</button>
-      {error && <p>{error}</p>}
-      {isLoading && <p>Loading...</p>}
-      {pokemons.length > 0 && (
+      {isPending(state) && <PendingResult />}
+      {isError(state) && <ErrorResult>{state.error}</ErrorResult>}
+      {isSuccess(state) && (
         <ul>
-          {pokemons.map((pokemon) => (
+          {state.value.map((pokemon) => (
             <li
               key={pokemon.name}
               onClick={() => {
@@ -46,7 +50,6 @@ const Component = () => {
           ))}
         </ul>
       )}
-
       <CreatePokemon />
     </div>
   );
