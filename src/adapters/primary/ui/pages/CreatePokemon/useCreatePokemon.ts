@@ -1,6 +1,5 @@
 import { useCallback } from "react";
 import { useMutation } from "@tanstack/react-query";
-import { createPokemonHandler } from "../../../../../core/use-cases/create-pokemon";
 import { useQuarzoDependencies } from "../../../../../application/use-quarzo-dependencies";
 import type { UiContract } from "../ui-contract";
 import type { State, Actions, ProtoPokemon } from "./CreatePokemon";
@@ -10,8 +9,8 @@ export const useCreatePokemon = (): UiContract<State, Actions> => {
 
   // Mutation for creating pokemon with optimistic update
   const createPokemonMutation = useMutation({
-    mutationFn: (request: ProtoPokemon) =>
-      createPokemonHandler(createPokemonGateway, request),
+    mutationFn: (pokemon: ProtoPokemon) =>
+      createPokemonGateway.createPokemon(pokemon),
 
     // Optimistic update: update cache immediately
     onMutate: async (newPokemon) => {
@@ -33,8 +32,8 @@ export const useCreatePokemon = (): UiContract<State, Actions> => {
   });
 
   const addPokemon = useCallback(
-    (request: ProtoPokemon) => {
-      createPokemonMutation.mutate(request);
+    (pokemon: ProtoPokemon) => {
+      createPokemonMutation.mutate(pokemon);
     },
     [createPokemonMutation]
   );

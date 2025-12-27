@@ -12,7 +12,7 @@ export type State = {
 };
 
 export type Actions = {
-  addPokemon: (request: ProtoPokemon) => void;
+  addPokemon: (pokemon: ProtoPokemon) => void;
 };
 
 export const CreatePokemon = () => {

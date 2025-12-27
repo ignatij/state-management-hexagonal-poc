@@ -2,7 +2,7 @@ import type { ReactNode } from "react";
 import { useQueryClient } from "@tanstack/react-query";
 import { buildQuarzoDependencies } from "./build-quarzo-dependencies";
 import { QuarzoDependenciesContext } from "./quarzo-dependencies.context";
-import type { QuarzoDependencies } from "./quarzo.dependencies";
+import type { QuarzoDependencies } from "../core/quarzo.dependencies";
 
 type QuarzoDependenciesProviderProps = {
   children: ReactNode;
@@ -14,7 +14,8 @@ export const QuarzoDependenciesProvider = ({
   dependencies,
 }: QuarzoDependenciesProviderProps) => {
   const queryClient = useQueryClient();
-  const resolvedDependencies = dependencies ?? buildQuarzoDependencies(queryClient);
+  const resolvedDependencies =
+    dependencies ?? buildQuarzoDependencies(queryClient);
 
   return (
     <QuarzoDependenciesContext.Provider value={resolvedDependencies}>

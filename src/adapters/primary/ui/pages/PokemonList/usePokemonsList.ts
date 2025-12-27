@@ -2,7 +2,6 @@
 import { useCallback, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { useQuarzoDependencies } from "../../../../../application/use-quarzo-dependencies";
-import { getPokemonsHandler } from "../../../../../core/use-cases/get-pokemons";
 import type { UiContract } from "../ui-contract";
 import type { Actions, State } from "./PokemonsList";
 
@@ -17,7 +16,7 @@ export const usePokemonsList = (): UiContract<State, Actions> => {
   // Query for fetching pokemons
   const { data, error, isFetching, isPending, refetch } = useQuery({
     queryKey: ["pokemons"],
-    queryFn: () => getPokemonsHandler(getPokemonsGateway),
+    queryFn: () => getPokemonsGateway.getPokemons(),
     enabled: hasRequestedFetch,
     staleTime: 1000 * 30,
     gcTime: 1000 * 60 * 5,
