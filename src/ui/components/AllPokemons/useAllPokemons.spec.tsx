@@ -1,29 +1,12 @@
 import { describe, expect, test } from "vitest";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { QuarzoDependenciesProvider } from "../../../bootstrap/quarzo.provider";
-import type { QuarzoDependencies } from "../../../bootstrap/quarzo.dependencies";
+import { QueryClient } from "@tanstack/react-query";
 import { renderHook, waitFor } from "@testing-library/react";
 import { useAllPokemons } from "./useAllPokemons";
 import { error, success } from "../../../utils/Result";
 import { buildInMemoryBff } from "../../../test-utils/in-memory-dependencies";
 import { buildInMemoryDependencies } from "../../../test-utils/in-memory-bff";
 import type { AllPokemonsItem } from "./AllPokemons";
-
-type Parameters = {
-  queryClient: QueryClient;
-  dependencies: QuarzoDependencies;
-};
-
-const wrapper =
-  ({ queryClient, dependencies }: Parameters) =>
-  ({ children }: { children: React.ReactNode }) =>
-    (
-      <QueryClientProvider client={queryClient}>
-        <QuarzoDependenciesProvider dependencies={dependencies}>
-          {children}
-        </QuarzoDependenciesProvider>
-      </QueryClientProvider>
-    );
+import { createWrapper } from "../../../test-utils/wrapper";
 
 describe("Test of useAllPokemons hook", () => {
   test("success", async () => {
@@ -33,16 +16,19 @@ describe("Test of useAllPokemons hook", () => {
       name: "bulbasaur",
       url: "https://pokeapi.co/api/v2/pokemon/1/",
     };
+
     const queryClient = new QueryClient();
+
     const bff = buildInMemoryBff()
       .withGetAllPokemons({ feedWithPokemons: [pokemon] })
       .build();
+
     const dependencies = buildInMemoryDependencies(bff);
 
+    const wrapper = createWrapper({ queryClient, dependencies });
+
     // When
-    const { result } = renderHook(() => useAllPokemons(), {
-      wrapper: wrapper({ queryClient, dependencies }),
-    });
+    const { result } = renderHook(() => useAllPokemons(), { wrapper });
 
     // Then
     await waitFor(() => {
@@ -59,15 +45,17 @@ describe("Test of useAllPokemons hook", () => {
         },
       },
     });
+
     const bff = buildInMemoryBff()
       .withGetAllPokemons({ failWithError: new Error("Could not fetch") })
       .build();
+
     const dependencies = buildInMemoryDependencies(bff);
 
+    const wrapper = createWrapper({ queryClient, dependencies });
+
     // When
-    const { result } = renderHook(() => useAllPokemons(), {
-      wrapper: wrapper({ queryClient, dependencies }),
-    });
+    const { result } = renderHook(() => useAllPokemons(), { wrapper });
 
     // Then
     await waitFor(() => {
