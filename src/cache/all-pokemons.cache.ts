@@ -3,6 +3,7 @@ import type {
   AllPokemons,
   AllPokemonsItem,
 } from "../ui/components/AllPokemons/AllPokemons";
+import type { CacheManager } from "./cache-manager";
 
 type AllPokemonsState = {
   data: AllPokemons | undefined;
@@ -10,21 +11,26 @@ type AllPokemonsState = {
   error: Error | null;
 };
 
-export type AllPokemonsCacheManager = {
-  getAllPokemons: () => AllPokemonsState;
-  addPokemon: (pokemon: AllPokemonsItem) => Promise<void>;
-  removePokemon: (pokemonName: string) => Promise<void>;
-  updatePokemon: (pokemon: AllPokemonsItem) => Promise<void>;
-};
+export type AllPokemonsCacheManager = CacheManager<
+  () => ["all-pokemons"],
+  {
+    getAllPokemons: () => AllPokemonsState;
+    addPokemon: (pokemon: AllPokemonsItem) => Promise<void>;
+    removePokemon: (pokemonName: string) => Promise<void>;
+    updatePokemon: (pokemon: AllPokemonsItem) => Promise<void>;
+  }
+>;
 
 export const createAllPokemonsCacheManager = (
   queryClient: QueryClient
 ): AllPokemonsCacheManager => {
-  const queryKey = ["all-pokemons"] as const;
+  const queryKey = (): ["all-pokemons"] => ["all-pokemons"];
 
   return {
+    queryKey,
+
     getAllPokemons: (): AllPokemonsState => {
-      const queryState = queryClient.getQueryState(queryKey);
+      const queryState = queryClient.getQueryState(queryKey());
       const data = queryState?.data as AllPokemonsState["data"];
 
       return {
@@ -36,7 +42,7 @@ export const createAllPokemonsCacheManager = (
 
     addPokemon: async (pokemon) => {
       // Optimistically update the cache
-      queryClient.setQueryData<AllPokemons>(queryKey, (oldData) => {
+      queryClient.setQueryData<AllPokemons>(queryKey(), (oldData) => {
         if (!oldData) return [pokemon];
         // Check if pokemon already exists
         if (oldData.some((p) => p.name === pokemon.name)) {
@@ -47,14 +53,14 @@ export const createAllPokemonsCacheManager = (
     },
 
     removePokemon: async (pokemonName) => {
-      queryClient.setQueryData<AllPokemons>(queryKey, (oldData) => {
+      queryClient.setQueryData<AllPokemons>(queryKey(), (oldData) => {
         if (!oldData) return [];
         return oldData.filter((p) => p.name !== pokemonName);
       });
     },
 
     updatePokemon: async (pokemon) => {
-      queryClient.setQueryData<AllPokemons>(queryKey, (oldData) => {
+      queryClient.setQueryData<AllPokemons>(queryKey(), (oldData) => {
         if (!oldData) return [];
         return oldData.map((p) => (p.name === pokemon.name ? pokemon : p));
       });

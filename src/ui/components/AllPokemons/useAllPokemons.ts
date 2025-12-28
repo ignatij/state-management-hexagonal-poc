@@ -7,7 +7,7 @@ import { useSelection } from "../../../state/selection";
 import { error, pending, success } from "../../../utils/Result";
 
 export const usePokemonsList = (): UiContract<State, Actions> => {
-  const { bff } = useQuarzoDependencies();
+  const { bff, cache } = useQuarzoDependencies();
   const setSelection = useSelection((state) => state.setSelection);
   const [hasRequestedFetch, setHasRequestedFetch] = useState(false);
 
@@ -23,7 +23,7 @@ export const usePokemonsList = (): UiContract<State, Actions> => {
     isPending,
     refetch,
   } = useQuery({
-    queryKey: ["all-pokemons"],
+    queryKey: cache.allPokemons.queryKey(),
     queryFn: () => bff.getAllPokemons(),
     enabled: hasRequestedFetch,
     staleTime: 1000 * 30,
