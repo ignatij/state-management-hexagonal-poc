@@ -50,9 +50,15 @@ describe("Test of useAllPokemons hook", () => {
     });
   });
 
-  test.only("error", () => {
+  test("error", async () => {
     // Given
-    const queryClient = new QueryClient();
+    const queryClient = new QueryClient({
+      defaultOptions: {
+        queries: {
+          retry: false,
+        },
+      },
+    });
     const bff = buildInMemoryBff()
       .withGetAllPokemons({ failWithError: new Error("Could not fetch") })
       .build();
@@ -64,6 +70,8 @@ describe("Test of useAllPokemons hook", () => {
     });
 
     // Then
-    expect(result.current.state).toEqual(error("Could not fetch"));
+    await waitFor(() => {
+      expect(result.current.state).toEqual(error("Could not fetch"));
+    });
   });
 });
