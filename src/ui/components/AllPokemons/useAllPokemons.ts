@@ -6,7 +6,7 @@ import type { Actions, State } from "./AllPokemons";
 import { useSelection } from "../../../state/selection";
 import { error, pending, success } from "../../../utils/Result";
 
-export const usePokemonsList = (): UiContract<State, Actions> => {
+export const useAllPokemons = (): UiContract<State, Actions> => {
   const { bff, cache } = useQuarzoDependencies();
   const setSelection = useSelection((state) => state.setSelection);
   const [hasRequestedFetch, setHasRequestedFetch] = useState(false);

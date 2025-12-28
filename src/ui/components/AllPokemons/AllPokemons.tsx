@@ -7,7 +7,7 @@ import {
   type Result,
 } from "../../../utils/Result";
 import CreatePokemon from "./CreatePokemon/CreatePokemon";
-import { usePokemonsList } from "./useAllPokemons";
+import { useAllPokemons } from "./useAllPokemons";
 
 export type AllPokemonsItem = {
   id: number;
@@ -28,7 +28,7 @@ const Component = () => {
   const {
     state,
     actions: { load, select },
-  } = usePokemonsList();
+  } = useAllPokemons();
 
   return (
     <div>
