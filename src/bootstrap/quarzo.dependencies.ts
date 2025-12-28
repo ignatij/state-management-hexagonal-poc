@@ -1,5 +1,3 @@
-import type { AllPokemonsCacheManager } from "../cache/all-pokemons.cache";
-import type { OnePokemonCacheManager } from "../cache/one-pokemon.cache";
 import type {
   AllPokemons,
   AllPokemonsItem,
@@ -13,12 +11,6 @@ export type Bff = {
   createPokemon: (pokemon: ProtoPokemon) => Promise<AllPokemonsItem>;
 };
 
-type Cache = {
-  allPokemons: AllPokemonsCacheManager;
-  onePokemon: OnePokemonCacheManager;
-};
-
 export type QuarzoDependencies = {
   bff: Bff;
-  cache: Cache;
 };

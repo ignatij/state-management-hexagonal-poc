@@ -20,20 +20,18 @@ export type AllPokemons = AllPokemonsItem[];
 export type State = Result<AllPokemons, AllPokemons, string>;
 
 export type Actions = {
-  load: () => void;
   select: (pokemonId: number) => void;
 };
 
 const Component = () => {
   const {
     state,
-    actions: { load, select },
+    actions: { select },
   } = useAllPokemons();
 
   return (
     <div>
       <h3>Pokemons list</h3>
-      <button onClick={load}>Get Pokemons</button>
       {isPending(state) && <PendingResult />}
       {isError(state) && <ErrorResult>{state.error}</ErrorResult>}
       {isSuccess(state) && (

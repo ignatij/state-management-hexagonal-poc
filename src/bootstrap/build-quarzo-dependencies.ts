@@ -1,15 +1,6 @@
 import type { QuarzoDependencies } from "./quarzo.dependencies";
-import type { QueryClient } from "@tanstack/react-query";
-import { createAllPokemonsCacheManager } from "../cache/all-pokemons.cache";
 import { bff } from "../api/bff";
-import { createOnePokemonCacheManager } from "../cache/one-pokemon.cache";
 
-export const buildQuarzoDependencies = (
-  queryClient: QueryClient
-): QuarzoDependencies => ({
+export const buildQuarzoDependencies = (): QuarzoDependencies => ({
   bff: bff(),
-  cache: {
-    allPokemons: createAllPokemonsCacheManager(queryClient),
-    onePokemon: createOnePokemonCacheManager(queryClient),
-  },
 });

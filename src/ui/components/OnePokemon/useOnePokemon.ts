@@ -4,9 +4,10 @@ import type { UiContract } from "../../ui-contract";
 import type { Actions, State } from "./OnePokemon";
 import { useSelection } from "../../../state/selection";
 import { error, pending, success } from "../../../utils/Result";
+import { queryKey } from "../../../cache/one-pokemon.cache";
 
 export const useOnePokemon = (): UiContract<State, Actions> => {
-  const { bff, cache } = useQuarzoDependencies();
+  const { bff } = useQuarzoDependencies();
   const selection = useSelection((state) => state.selection);
 
   if (!selection) {
@@ -18,7 +19,7 @@ export const useOnePokemon = (): UiContract<State, Actions> => {
     error: e,
     isFetching,
   } = useQuery({
-    queryKey: cache.onePokemon.queryKey(selection),
+    queryKey: queryKey(selection),
     queryFn: () => bff.getOnePokemon(selection),
     staleTime: 1000 * 30,
     gcTime: 1000 * 60 * 5,
