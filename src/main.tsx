@@ -10,11 +10,9 @@ const queryClient = new QueryClient();
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <QueryClientProvider client={queryClient}>
-      <QuarzoDependenciesProvider
-        dependencies={buildQuarzoDependencies(queryClient)}
-      >
+      <QuarzoDependenciesProvider dependencies={buildQuarzoDependencies()}>
         <App />
       </QuarzoDependenciesProvider>
     </QueryClientProvider>
-  </StrictMode>
+  </StrictMode>,
 );
